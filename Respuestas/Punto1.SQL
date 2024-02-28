@@ -1,0 +1,10 @@
+SELECT COUNT(*) AS cantidad_transacciones, SUM(MONTO) AS monto_total
+FROM clap
+WHERE INICIO6_TARJETA || FINAL4_TARJETA IN (
+    SELECT SUBSTR(TARJETA, 1, 6) || SUBSTR(TARJETA, -4) AS tarjeta_clap
+    FROM bansur
+)
+AND FECHA_TRANSACCION IN (
+    SELECT FECHA_TRANSACCION
+    FROM bansur
+);
